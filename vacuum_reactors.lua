@@ -404,8 +404,10 @@ local function print_table(tbl)
 end
 
 local function get_lsc_proxy()
-	local gt_machines =
-		{ table.unpack(component.list("gt_machine", true)), table.unpack(component.list("gt_batterybuffer", true)) }
+	local gt_machines = { table.unpack(component.list("gt_machine", true)) }
+	for _, address in ipairs({ table.unpack(component.list("gt_batterybuffer", true)) }) do
+		table.insert(gt_machines, address)
+	end
 
 	for address, component_name in pairs(gt_machines) do
 		local proxy = component.proxy(address)
